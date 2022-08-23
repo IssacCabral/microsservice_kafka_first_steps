@@ -1,0 +1,17 @@
+version: "3"
+
+networks:
+  study_projects:
+    external: true
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Docker/api/Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - .:/app
+    networks:
+      - study_projects

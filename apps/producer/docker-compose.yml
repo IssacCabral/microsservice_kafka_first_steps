@@ -15,4 +15,21 @@ services:
       - .:/app
     networks:
       - study_projects
-                
+    depends_on:
+      - mysql  
+
+  mysql:
+    build:
+      context: ./Docker/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_producer_microsservice
+    ports:
+      - "3003:3003"
+    volumes:
+      - db-data-producer-microsservice:/var/lib/mysql     
+    networks:
+      - study_projects
+
+volumes:
+  db-data-producer-microsservice:         

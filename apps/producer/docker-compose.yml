@@ -25,7 +25,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_producer_microsservice
     ports:
-      - "3003:3003"
+      - "3003:3306"
     volumes:
       - db-data-producer-microsservice:/var/lib/mysql     
     networks:

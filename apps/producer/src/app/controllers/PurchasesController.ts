@@ -8,20 +8,6 @@ interface RequestAlreadyContains {
     customer_id: number
 }
 
-async function verify_If_Customer_Already_Contains_Product({ product_ids, customer_id }: RequestAlreadyContains){
-    const customerRepository = dataSource.getRepository(Customer)
-    const customer = await customerRepository.findOne({ where: { id: customer_id }, relations: { products: true } })
-
-    let aux = []
-
-    customer.products.forEach((product) => {
-        let result = product_ids.includes(product.id)
-        if(result) aux.push(product)
-    })
-    
-    return aux.length > 0 ? aux : false
-}
-
 export class PurchasesController {
     async store(request: Request, response: Response) {
         const { customer_id, product_ids } = request.body
@@ -31,21 +17,21 @@ export class PurchasesController {
         const productRepository = dataSource.getRepository(Product)
 
         try {
-            const customer = await customerRepository.findOne({ where: { id: customer_id } })
+            const customer = await customerRepository.findOne({ where: { id: customer_id }, relations: {products: true} })
 
             if (!customer) throw new Error('customer does not exists')
-
-            const result = await verify_If_Customer_Already_Contains_Product({ product_ids, customer_id })
-            if(result) return response.status(400).json({message: 'Produtos já existentes', produtosExistentes: result})
 
             for (let i = 0; i < product_ids.length; i++) {
                 const product = await productRepository.findOne({ where: { id: product_ids[i] } })
 
                 if (!product) throw new Error('product does not exists')
+              
                 products.push(product)
             }
 
-            customer.products = products
+            products.forEach(product => {
+                customer.products.push(product)
+            })
 
             await customerRepository.save(customer)
 

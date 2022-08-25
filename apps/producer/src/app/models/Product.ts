@@ -8,20 +8,6 @@ export class Product{
 
     @Column()
     title: string
-    
-    @ManyToMany(type => Customer)
-    @JoinTable({
-        name: 'purchases',
-        joinColumn: {
-            name: 'products_id',
-            referencedColumnName: 'id'
-        },
-        inverseJoinColumn: {
-            name: 'customers_id',
-            referencedColumnName: 'id'
-        }
-    })
-    customers: Customer[]
 
     @CreateDateColumn()
     created_at: Date

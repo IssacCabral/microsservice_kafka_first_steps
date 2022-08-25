@@ -11,7 +11,9 @@ export class product1661359464393 implements MigrationInterface {
                         name: 'id',
                         type: 'integer',
                         unsigned: true,
-                        isPrimary: true
+                        isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: 'increment',
                     },
                     {
                         name: 'title',

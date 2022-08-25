@@ -12,15 +12,17 @@ export class purchase1661359684803 implements MigrationInterface {
                         type: 'integer',
                         unsigned: true,
                         isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: 'increment',
                     },
                     {
-                        name: 'customer_id',
+                        name: 'customers_id',
                         type: 'integer',
                         unsigned: true,
                         isNullable: false
                     },
                     {
-                        name: 'product_id',
+                        name: 'products_id',
                         type: 'integer',
                         unsigned: true,
                         isNullable: false
@@ -34,13 +36,13 @@ export class purchase1661359684803 implements MigrationInterface {
                 foreignKeys: [
                     {
                         name: 'customer_products_customer_id_foreign',
-                        columnNames: ['customer_id'],
+                        columnNames: ['customers_id'],
                         referencedTableName: 'customers',
                         referencedColumnNames: ['id']
                     },
                     {
                         name: 'customer_products_product_id_foreign',
-                        columnNames: ['product_id'],
+                        columnNames: ['products_id'],
                         referencedTableName: 'products',
                         referencedColumnNames: ['id']
                     }

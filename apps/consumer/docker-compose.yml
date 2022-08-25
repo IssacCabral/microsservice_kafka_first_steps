@@ -25,7 +25,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_consumer_microsservice
     ports:
-      - "3004:3004"
+      - "3004:3306"
     volumes:
       - db-data-consumer-microsservice:/var/lib/mysql     
     networks:

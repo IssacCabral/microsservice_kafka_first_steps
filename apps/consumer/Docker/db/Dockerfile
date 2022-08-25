@@ -17,4 +17,4 @@ RUN chmod 0444 /etc/mysql/conf.d/my.cnf
 
 CMD ["mysqld"]
 
-EXPOSE 3004
+EXPOSE 3306

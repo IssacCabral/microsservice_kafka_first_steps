@@ -3,11 +3,6 @@ import dataSource from '../../database/data-source'
 import { Customer } from '../models/Customer'
 import { Product } from '../models/Product'
 
-interface RequestAlreadyContains {
-    product_ids: Array<number>,
-    customer_id: number
-}
-
 export class PurchasesController {
     async store(request: Request, response: Response) {
         const { customer_id, product_ids } = request.body

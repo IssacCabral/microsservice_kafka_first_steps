@@ -1,7 +1,8 @@
 import "reflect-metadata"
+import './database/data-source'
+
 import express from 'express'
 import env from './config/env'
-import './database/data-source'
 import mainRouter from "./routes/main-router"
 
 const app = express()

@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-  database:
-    container_name: micro_db
-    image: 'postgres:alpine'
-    ports:
-      - '5432:5432'
-    volumes:
-      - 'postgresql_data:/var/lib/postgresql'
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=docker
-    networks:
-      - app-net
-
   zookeeper:
     container_name: micro_zookeeper
     image: 'bitnami/zookeeper:3'
@@ -51,6 +38,4 @@ volumes:
   zookeeper_data:
     driver: local
   kafka_data:
-    driver: local
-  postgresql_data:
     driver: local

@@ -5,6 +5,8 @@ import { Product } from '../models/Product'
 
 import Producer from '../../kafka/Producer'
 
+//import producer from '../../kafka/Producer'
+
 export class PurchasesController {
     async store(request: Request, response: Response) {
         const { customer_id, product_id } = request.body
@@ -19,8 +21,6 @@ export class PurchasesController {
             if (!customer) throw new Error('customer does not exists')
             if(!product) throw new Error('product does not exists')
 
-            console.log('to aqui')
-
             customer.products.forEach(row => {
                 if(row.id === product_id) throw new Error('you already purchased this product')
             })
@@ -29,11 +29,27 @@ export class PurchasesController {
 
             await customerRepository.save(customer)
 
+            const data = JSON.stringify({
+                product: {
+                    id: product.id,
+                    title: product.title
+                },
+                customer: {
+                    name: customer.name,
+                    email: customer.email
+                }
+            })
+
             /**Produzindo a mensagem */
-            //const producer = new Producer()
+            const producer = new Producer()
 
+            await producer.connect().then(() => console.log('conectou com sucesso ao kafka'))
 
+            producer.sendMessage([{value: data}], 'new-purchase')
+
+            await producer.disconnect()
             // fim producer
+
             const customerCreated = await customerRepository.find({ where: { id: customer_id }, relations: { products: true } })
 
             return response.status(201).json({ customerCreated })

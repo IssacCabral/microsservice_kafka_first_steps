@@ -11,6 +11,8 @@ const PORT = env.TYPEORM_SERVERPORT
 app.use(express.json())
 app.use(mainRouter)
 
+console.log('ss')
+
 app.get('/', (req, res) => {
     console.log('Você está na rota principal')
     return res.send({message: 'Producer Server'})

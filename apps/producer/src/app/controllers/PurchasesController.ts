@@ -5,8 +5,6 @@ import { Product } from '../models/Product'
 
 import Producer from '../../kafka/Producer'
 
-//import producer from '../../kafka/Producer'
-
 export class PurchasesController {
     async store(request: Request, response: Response) {
         const { customer_id, product_id } = request.body

@@ -1,5 +1,6 @@
 import "reflect-metadata"
 import './database/data-source'
+
 import express from 'express'
 import env from './config/env'
 import mainRouter from "./routes/main-router"
@@ -9,6 +10,8 @@ const PORT = env.TYPEORM_SERVERPORT
 
 app.use(express.json())
 app.use(mainRouter)
+
+console.log('okla')
 
 app.get('/', (req, res) => {
     console.log('Você está na rota principal')

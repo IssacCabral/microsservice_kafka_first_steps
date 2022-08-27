@@ -37,7 +37,7 @@ export class PurchasesController {
                     email: customer.email
                 }
             })
-
+            
             /**Produzindo a mensagem */
             const producer = new Producer()
 
